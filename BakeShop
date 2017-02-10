@@ -1,0 +1,71 @@
+
+/**
+ * Write a description of class BakeShop here.
+ * 
+ * @author Britta Swedin 
+ * @version 1/28/17
+ */
+import java.lang.Math;
+
+public class BakeShop
+{
+    //Fields
+    int bakerCount;
+    BakeryOrder oneOrder;
+
+    /**
+     * Constructor for objects of class BakeShop
+     */
+    public BakeShop()
+    {
+        // initialise instance variables
+        
+        int bakerCount = 0;
+        int x = 0;
+    }
+    public BakeShop(int bakerCount) {
+        if (bakerCount < 0) {
+            throw new IllegalArgumentException ("Number of bakers cannot be less than zero.");
+        }
+        this.bakerCount = bakerCount;
+    }
+    
+    public void submitOrder(BakeryOrder oneOrder)
+    {
+        this.oneOrder = oneOrder;
+    }
+
+    // Accessors
+    public int getPiesOnOrderCount() {
+        return oneOrder.getPieCount();
+    }
+    public int getCakesOnOrderCount() {
+        return oneOrder.getCakeCount();
+    }
+    public int getCupcakesDozOnOrderCount() {
+        return oneOrder.getCupcakeDozCount();
+    }
+    public int getOrderCount() {
+        return 1;
+    }
+    public double getTotalSales() {
+        return oneOrder.getPrice();
+    }
+    public double getAvgOrderPrice() {
+        return oneOrder.getPrice();
+    }
+    public int getBakerCount() {
+        int Bcount = (int)Math.ceil((float)oneOrder.itemCount()/25.0);
+        return Bcount;
+    }
+    public String toString() {
+        String output = "";
+        output = output + "Pies on order = " + getPiesOnOrderCount() + "\n";
+        output = output + "Cakes on order = " + getCakesOnOrderCount() + "\n";
+        output = output + "Cupcakes on order = " + getCupcakesDozOnOrderCount();
+        return output;
+    }
+    public static void main (String[] args) {
+        
+    }
+}
