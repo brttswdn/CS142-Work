@@ -1,0 +1,158 @@
+
+
+import static org.junit.Assert.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+/**
+ * The test class BakeShopTest.
+ *
+ * @author  Britta Swedin
+ * @version 2/8/17
+ */
+public class BakeShopTest
+{
+    /**
+     * Default constructor for test class BakeShopTest
+     */
+    public BakeShopTest()
+    {
+    }
+
+    /**
+     * Sets up the test fixture.
+     *
+     * Called before every test case method.
+     */
+    @Before
+    public void setUp()
+    {
+    }
+    
+    @Test
+    public void testBakeShopCTor() 
+    {
+        BakeryOrder bakeryOr1 = new BakeryOrder(1,1,1,1);
+        BakeShop bakeShop = new BakeShop();
+        bakeShop.submitOrder(bakeryOr1);
+        assertEquals(1, bakeShop.getBakerCount());
+        
+        try {
+            BakeShop bakeShop1 = new BakeShop(-1);
+            assertFalse(true);
+        }
+        catch (IllegalArgumentException e) 
+        {
+            /*good*/
+        }
+    }
+    
+    @Test
+    public void testEmptyOrder()
+    {
+        BakeryOrder bakeryOr1 = new BakeryOrder(1,0,0,0);
+        BakeShop bakeShop = new BakeShop();
+        bakeShop.submitOrder(bakeryOr1);
+        assertEquals(0, bakeryOr1.getPieCount());
+        assertEquals(0, bakeryOr1.getCakeCount());
+        assertEquals(0, bakeryOr1.getCupcakeDozCount());
+    }
+    
+    @Test
+    public void testInitOrder()
+    {
+        BakeryOrder bakeryOr1 = new BakeryOrder(1,2,3,4);
+        BakeShop bakeShop = new BakeShop();
+        bakeShop.submitOrder(bakeryOr1);
+        assertEquals(2, bakeryOr1.getPieCount());
+        assertEquals(3, bakeryOr1.getCakeCount());
+        assertEquals(4, bakeryOr1.getCupcakeDozCount());  
+    }
+    
+    @Test
+    public void testGetOrderCount()
+    {
+        BakeryOrder bakeryOr1 = new BakeryOrder(1,2,3,4);
+        BakeShop bakeShop = new BakeShop();
+        bakeShop.submitOrder(bakeryOr1);
+        assertEquals(1, bakeShop.getOrderCount());      
+    }
+    
+    @Test
+    public void testGetPiesOnOrderCount()
+    {
+        BakeryOrder bakeryOr1 = new BakeryOrder(1,2,3,4);
+        BakeShop bakeShop = new BakeShop();
+        bakeShop.submitOrder(bakeryOr1);
+        assertEquals(2, bakeShop.getPiesOnOrderCount());
+    }
+    
+    @Test
+    public void testGetCakesOnOrderCount()
+    {
+        BakeryOrder bakeryOr1 = new BakeryOrder(1,1,1,1);
+        BakeShop bakeShop = new BakeShop();
+        bakeShop.submitOrder(bakeryOr1);
+        assertEquals(1, bakeShop.getCakesOnOrderCount());
+    }
+    
+    @Test
+    public void testGetCupcakesDozOnOrderCount()
+    {
+        BakeryOrder bakeryOr1 = new BakeryOrder(1,1,1,1);
+        BakeShop bakeShop = new BakeShop();
+        bakeShop.submitOrder(bakeryOr1);
+        assertEquals(1, bakeShop.getCupcakesDozOnOrderCount());
+    }
+    
+    
+    @Test
+    public void testGetTotalSales()
+    {
+        BakeryOrder bakeryOr1 = new BakeryOrder(1,1,1,1);
+        BakeShop bakeShop = new BakeShop();
+        bakeShop.submitOrder(bakeryOr1);
+        assertEquals(79.97, bakeryOr1.getPrice(),0.001);      
+    }  
+    
+    @Test
+    public void testGetAvgOrderPrice()
+    {
+        BakeryOrder bakeryOr1 = new BakeryOrder(1,1,1,1);
+        BakeShop bakeShop = new BakeShop();
+        bakeShop.submitOrder(bakeryOr1);
+        assertEquals(79.97, bakeShop.getAvgOrderPrice(),0.001);      
+    }     
+    
+    @Test
+    public void testToString()
+    {
+        BakeryOrder bakeryOr1 = new BakeryOrder(1,1,1,1);
+        BakeShop bakeShop = new BakeShop();
+        bakeShop.submitOrder(bakeryOr1);
+        assertEquals("Pies on order = 1\nCakes on order = 1\nCupcakes on order = 1", 
+            bakeShop.toString());        
+    }
+    
+    @Test
+    public void testGetBakerCount()
+    {
+        BakeryOrder bakeryOr1 = new BakeryOrder(1,1,1,1);
+        BakeShop bakeShop = new BakeShop();
+        bakeShop.submitOrder(bakeryOr1);
+        assertEquals(1, bakeShop.getBakerCount());
+    }
+    
+    
+
+    /**
+     * Tears down the test fixture.
+     *
+     * Called after every test case method.
+     */
+    @After
+    public void tearDown()
+    {
+    }
+}
