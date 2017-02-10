@@ -12,6 +12,12 @@ public class BakeShop
     //Fields
     int bakerCount;
     BakeryOrder oneOrder;
+    int piesOnOrderCount;
+    int cakesOnOrderCount;
+    int cupcakesOnOrderCount;
+    int orderCount;
+    double totalSales;
+    
 
     /**
      * Constructor for objects of class BakeShop
@@ -30,33 +36,37 @@ public class BakeShop
         this.bakerCount = bakerCount;
     }
     
+    /**
     public void submitOrder(BakeryOrder oneOrder)
     {
         this.oneOrder = oneOrder;
     }
+    */
 
     // Accessors
     public int getPiesOnOrderCount() {
-        return oneOrder.getPieCount();
+        return this.piesOnOrderCount;
     }
     public int getCakesOnOrderCount() {
-        return oneOrder.getCakeCount();
+        return this.cakesOnOrderCount;
     }
     public int getCupcakesDozOnOrderCount() {
-        return oneOrder.getCupcakeDozCount();
+        return this.cupcakesOnOrderCount;
     }
     public int getOrderCount() {
-        return 1;
+        return this.orderCount;
     }
     public double getTotalSales() {
-        return oneOrder.getPrice();
+        return this.totalSales;
     }
     public double getAvgOrderPrice() {
-        return oneOrder.getPrice();
+        return totalSales/orderCount;
     }
     public int getBakerCount() {
-        int Bcount = (int)Math.ceil((float)oneOrder.itemCount()/25.0);
-        return Bcount;
+        int itemCount = cupcakesOnOrderCount + cakesOnOrderCount + piesOnOrderCount;
+        int bakerCount = itemCount/25;
+        if (itemCount % 25!=0) bakerCount++;
+        return bakerCount;
     }
     public String toString() {
         String output = "";
@@ -65,7 +75,14 @@ public class BakeShop
         output = output + "Cupcakes on order = " + getCupcakesDozOnOrderCount();
         return output;
     }
-    public static void main (String[] args) {
-        
+    
+    public void submitOrder(BakeryOrder oneOrder)
+    {
+        piesOnOrderCount += oneOrder.getPieCount();
+        cakesOnOrderCount += oneOrder.getCakeCount();
+        cupcakesOnOrderCount += oneOrder.getCupcakeDozCount();
+        orderCount++;
+        totalSales += oneOrder.getPrice();
     }
+
 }
