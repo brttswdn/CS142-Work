@@ -1,4 +1,3 @@
-
 /**
  * Write a description of class GeoSet here.
  * 
@@ -7,108 +6,131 @@
  */
 import java.util.*;
 import java.io.*;
+//import Location
 
 public class GeoSet
 {
     // instance variables
-    private double[][] Location;
+    private Location[] locArray;
     private int x;
-    private int count;
+    private int num;
     private File locationFile;
 
     /**
      * Constructor for objects of class GeoSet
      */
-    public GeoSet(String filename)
+    public GeoSet(String filename)throws FileNotFoundException
     {
-        locationFile = new File(filename);
-        readInFile(locationFile);
-    }
-    
-    //HELPER METHOD
-    private int readInFile(File filename){
-        try {
-            Scanner input = new Scanner(filename);
+        File locationFile = new File(filename);
+        Scanner input = new Scanner(locationFile);
             
-            //number of locations in this file
-            int locNum = input.nextInt();
-            if (locNum < 2) {
+       //number of locations in this file
+       int num = input.nextInt();
+       Location locArray[] = new Location[num];
+       
+       if (num < 2) {
                 throw new IllegalArgumentException("File must have at least 2 locations.");
-        }
-        return locNum;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+       }
+       for (int i = 0; i < num; i++) {
+           String place = input.next();
+           double lat = input.nextDouble();
+           double longitude = input.nextDouble();
+           locArray[i] = new Location(place, lat, longitude);
         }
     }
-    
+
 
     /**
      * getCount counts the number of locations in a file/set
      * 
      * @param   no parameters
-     * @return     the number of locations in this set 
-     */
+     * @return     the number of locations in this set
+     * */
+     
     public int getCount()
     {
-        readInFile(locationFile);
-        //locNum equals the number of locations in the file
-        return readInFile(locationFile);
+        return this.num;
     }
+
     
     /**
-     * An example of a method - replace this comment with your own
+     * findMinDist Based on the order that the Locations were loaded into this GeoSet, 
+     * this method returns the smallest distance between 2 consecutive Locations in this set
      *
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y
+     * @param   no parameters
+     * @return     the difference between x and y
      * PLAN: TO MAKE AN ARRAY WITH ALL THE LOCATIONS, THEN SUBTRACT CONSECUTIVE LOCATIONS
-     * TO FIND THE SMALLEST.
-     */
-    public double findMinDist(int y)
+     * TO FIND THE SMALLEST. NEED NESTED FOR LOOP.
+     * */
+     
+    public double findMinDist()
     {
-        // put your code here
-        return y;
+        double min = 3963.1; // earth's radius - attempt at no magic numbers
+        for(int i = 0; i < this.num; i++) {//for all the locations in the file
+            for (int j = 1; j < 3; j++) { // for the last two values in each location array
+                double dist = Location.distance(locArray[i]); //find the distance between i and i -1
+                if (dist <= min) {
+                    min = dist;
+                }
+            }
+        }
     }
+
     
     /**
-     * An example of a method - replace this comment with your own
+     * returns the Location whose name matches the parameter. Return null if no match found
      *
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y
-     */
+     * @param  name   the name of the location you're looking for
+     * @return     the array of the lat/long for the location
+     * */
+     
     public Location find(String name)
     {
-        Location found = new Location(name, 0.0, 0.0);
-        while(locationFile.hasNext){
+        //Location found = new Location(name, 0.0, 0.0);
+        for(int i = 0; i< num; i++){
+            for ( int j = 0; j< 1; j++) {
+                if (locArray[i][0] /* place*/ == name) {
+                    return locArray[i];
+                }
+            }
+        }
+        /*while(locationFile.hasNext){
             if (locationFile.next != name){
-                //carry on
-            }else if (locationFile.next.equals(name)){
+                continue;
+            }else if (locationFile.next().equals(name)){
                 found.lat = locationFile.nextDouble();
                 found.longitude = locationFile.nextDouble();
             }
         }
         found.name = name;
         return found;
+        */
     }
-    
+}
+ 
+   
     /**
-     * An example of a method - replace this comment with your own
+     * returns an array with the 2 Locations from this GeoSet 
+     * that are the farthest from each other. 
+     * These 2 Locations are not necessarily consecutive in the set.
      *
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y
-     * PLAN: TO MAKE AN ARRAY
-     */
+     * @param   no parameters
+     * @return     an array of the two locations farthest from each other
+     * PLAN: TO MAKE AN ARRAY. NEED NESTED FOR LOOP.
+    
     public Location[] farthest()
     {
-        // put your code here
-        return y;
+
     }
-    
+    */
     /**
-     * An example of a method - replace this comment with your own
+     * returns a String that contains the String representation for 
+     * each Location object in this GeoSet, separate by '\n'.
+
      *
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y
-     */
+     * @param  no parameter
+     * @return     the string representation for each location
+     
     public String toString()
     {
         String output = "";
@@ -118,4 +140,4 @@ public class GeoSet
     }
     return output;
     }
-}
+    */
